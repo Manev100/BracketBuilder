@@ -3,6 +3,8 @@ package marc.main;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.TextField;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,27 +16,21 @@ public class BracketComponent extends JPanel {
 	PlayerMatch playerMatch;
 	ImageIcon iconP1;
 	ImageIcon iconP2;
+	JPanel player1;
+	JPanel player2;
+	
 	
 	public BracketComponent(PlayerMatch p1) {
 		setLayout(new BorderLayout());
 		playerMatch	= p1;
-		iconP1 = new ImageIcon("res/wrong.png" ,"Defaul-Icon");
-		iconP2 = new ImageIcon("res/wrong.png" ,"Defaul-Icon");
 		
-		add(new JLabel(iconP1),BorderLayout.NORTH);
+		player1 = new PlayerArea(playerMatch.getPlayer1());
+		player2 = new PlayerArea(playerMatch.getPlayer2());
+		
+		add(player1, BorderLayout.NORTH);
+		add(player2, BorderLayout.SOUTH);
 		
 	}
-	
-	/*public void paintComponent(Graphics g){
-		
-		drawBorder(g);
-		drawIcons(g);
-		drawPlayerNames(g);
-		
-		
-	}*/
-	
-	
 	
 	
 	
