@@ -70,8 +70,8 @@ public class BracketController {
 		
 		
 		JTable table = new JTable(model);
-		table.setDefaultRenderer(BracketComponent.class, new BracketTableRenderer());
-		//table.setDefaultEditor(BracketComponent.class, BracketCellEditor());
+		table.setDefaultRenderer(JPanel.class, new BracketTableRenderer());
+		table.setDefaultEditor(JPanel.class,new BracketCellEditor());
 		table.setShowGrid(false);
 		table.setRowMargin(0);
 		table.getColumnModel().setColumnMargin(0);
