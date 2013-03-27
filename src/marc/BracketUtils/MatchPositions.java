@@ -10,33 +10,31 @@ public class MatchPositions {
 	// 128 Players => 7 rounds + 1 winner
 	
 	// @Dimension d size of the bracket-component to be displayed
-	public static Point[][] get128PlayersPositions(Dimension d){
+	public static Point[][] get128PlayersPositions(){
 		Point[][] pos = new Point[8][128];
-		int height = (int) d.getHeight();
-		int width = (int) d.getWidth();
 		for(int i = 0; i < 128;i++ ){
-			pos [0][i] = new Point(0,2*i*height);
+			pos [0][i] = new Point(0,2*i);
 		} 
 		for(int i = 0; i < 64;i++ ){
-			pos [1][i] = new Point(width+100 ,height+4*i*height);
+			pos [1][i] = new Point(2 ,1+4*i);
 		}
 		for(int i = 0; i < 32;i++ ){
-			pos [2][i] = new Point(2*(width+100) ,3*height+8*i*height);
+			pos [2][i] = new Point(4 ,3+8*i);
 		}
 		for(int i = 0; i < 16;i++ ){
-			pos [3][i] = new Point(3*(width+100) ,7*height+16*i*height);
+			pos [3][i] = new Point(6 ,7+16*i);
 		}
 		for(int i = 0; i < 8;i++ ){
-			pos [4][i] = new Point(4*(width+100) ,15*height+32*i*height);
+			pos [4][i] = new Point(8 ,15+32*i);
 		}
 		for(int i = 0; i < 4;i++ ){
-			pos [5][i] = new Point(5*(width+100) ,31*height+64*i*height);
+			pos [5][i] = new Point(10 ,31+64*i);
 		}
 		for(int i = 0; i < 2;i++ ){
-			pos [6][i] = new Point(6*(width+100) ,63*height+128*i*height);
+			pos [6][i] = new Point(12 ,63+128*i);
 		}
 		for(int i = 0; i < 1;i++ ){
-			pos [7][i] = new Point(7*(width+100) ,127*height+256*i*height);
+			pos [7][i] = new Point(14 ,127+256*i);
 		}
 		return pos;
 	}

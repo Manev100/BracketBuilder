@@ -18,7 +18,7 @@ import javax.swing.SwingConstants;
 
 import marc.BracketUtils.MatchPositions;
 
-public class ViewPanel extends JPanel implements Scrollable{
+public class ViewPanel extends JPanel{
 		
 	private BracketModel model;
 	private int offsetX, offsetY;
@@ -33,8 +33,9 @@ public class ViewPanel extends JPanel implements Scrollable{
 		BracketComponent d = new BracketComponent(new PlayerMatch(new Player(""), new Player("")));
 		Insets insets = getInsets();
 		Dimension size = d.getPreferredSize();
-		setPreferredSize(MatchPositions.getPanelSize128Players(size));
-		Point[][] positions = MatchPositions.get128PlayersPositions(size);
+		//setPreferredSize(MatchPositions.getPanelSize128Players(size));
+		setPreferredSize(new Dimension(800,600));
+		Point[][] positions = MatchPositions.get128PlayersPositions();
 		for(int x=0; x< 8; x++ ){
 			for(int y=0; y< 128;y++){
 				if(positions[x][y] != null){
@@ -66,62 +67,4 @@ public class ViewPanel extends JPanel implements Scrollable{
 	}
 
 	
-	// Scrollable Interface
-	@Override
-	public Dimension getPreferredScrollableViewportSize() {
-		return getPreferredSize();
-	}
-
-	@Override
-	public int getScrollableBlockIncrement(Rectangle visibleRect,
-            int orientation,
-            int direction) {
-		if (orientation == SwingConstants.HORIZONTAL)
-	        return visibleRect.width - maxUnitIncrement;
-	    else
-	        return visibleRect.height - maxUnitIncrement;
-	}
-
-	@Override
-	public boolean getScrollableTracksViewportHeight() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean getScrollableTracksViewportWidth() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
-		//Get the current position.
-	    int currentPosition = 0;
-	    if (orientation == SwingConstants.HORIZONTAL) {
-	        currentPosition = visibleRect.x;
-	    } else {
-	        currentPosition = visibleRect.y;
-	    }
-
-	    //Return the number of pixels between currentPosition
-	    //and the nearest tick mark in the indicated direction.
-	    
-	    if (direction < 0) {
-	        int newPosition = currentPosition -
-	                         (currentPosition / maxUnitIncrement)
-	                          * maxUnitIncrement;
-
-		    System.out.println(newPosition );
-	        return (newPosition == 0) ? maxUnitIncrement : newPosition;
-	    } else {
-	        return ((currentPosition / maxUnitIncrement) + 1)
-	                 * maxUnitIncrement
-	                 - currentPosition;
-	    }
-	}
-	
-	public void setMaxUnitIncrement(int pixels) {
-        maxUnitIncrement = pixels;
-    }
 }
