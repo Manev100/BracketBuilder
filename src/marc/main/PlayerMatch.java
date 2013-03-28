@@ -1,5 +1,7 @@
 package marc.main;
 
+import marc.enums.Format;
+
 public class PlayerMatch {
 	
 	private Player player1;

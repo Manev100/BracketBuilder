@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import marc.Listeners.AddPlayerListener;
+import marc.enums.PlayerCount;
 
 public class BracketController {
 	
@@ -50,7 +51,6 @@ public class BracketController {
 	}
 	private JSplitPane createJSplitPane(){
 		JSplitPane p = new JSplitPane(JSplitPane.VERTICAL_SPLIT,true);
-		viewPanel = new ViewPanel(bracketModel);
 		
 		
 		JScrollPane scrollPane = new JScrollPane(createTable(),ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -64,8 +64,8 @@ public class BracketController {
 	
 	
 	private JTable createTable(){
-		int playerCount = 128;
-		BracketTableModel model = new BracketTableModel(playerCount);
+
+		BracketTableModel model = new BracketTableModel(PlayerCount.players32);
 		
 		
 		

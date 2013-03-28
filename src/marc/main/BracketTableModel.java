@@ -9,19 +9,26 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 import marc.BracketUtils.MatchPositions;
+import marc.enums.PlayerCount;
 
 public class BracketTableModel extends AbstractTableModel implements TableModel {
 
 	private int rowCount = 0;
 	private int columnCount = 0;
-	private static final String COLUMN_NAMES[] = {"RO 128","","RO 64","","RO 32","", "RO 16","", "RO 8","", "RO 4","", "RO 2","", "Final"};
+	private String COLUMN_NAMES[];
 	private JPanel field[][];
 	private JPanel betweenPanel;
+	private int maxPlayers;
 	
-	public BracketTableModel(int playerCount) {
-		if((Math.log(playerCount)/Math.log(2)) % 1 == 0){
-			rowCount = 2*playerCount -1;
-			columnCount = (int) ((Math.log(playerCount)/Math.log(2))+1) *2-1;
+	
+	public BracketTableModel(PlayerCount playerCount) {
+		this.maxPlayers = playerCount.getPlayerCount();
+		
+		this.COLUMN_NAMES = playerCount.getColumnNames();
+		
+		if((Math.log(maxPlayers)/Math.log(2)) % 1 == 0){
+			rowCount = 2*maxPlayers -1;
+			columnCount = (int) ((Math.log(maxPlayers)/Math.log(2))+1) *2-1;
 			field = new JPanel[columnCount][rowCount];
 			fillfield(field);
 			betweenPanel = new JPanel();
@@ -34,7 +41,7 @@ public class BracketTableModel extends AbstractTableModel implements TableModel 
 
 	private void fillfield(JPanel[][] f) {
 
-		Point[][] positions = MatchPositions.get128PlayersPositions();
+		Point[][] positions = MatchPositions.getPlayersPositions(maxPlayers);
 		int column;
 		int row;
 		for(int x = 0; x < positions.length; x++){
@@ -42,7 +49,7 @@ public class BracketTableModel extends AbstractTableModel implements TableModel 
 				if(positions[x][y] != null){
 				column = positions[x][y].x;
 				row = positions[x][y].y;	
-				f[column][row] = new BracketComponent(new PlayerMatch(new Player("asd"),new Player("345")));
+				f[column][row] = new BracketComponent(new PlayerMatch(new Player("TBD"),new Player("TBD")));
 				}
 			}
 		}

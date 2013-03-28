@@ -1,14 +1,14 @@
-package marc.main;
+package marc.enums;
 
 public enum Format {
 	BO1(1),BO3(3),BO5(5),BO7(7),BO9(9);
 	
 	private final int maxGames;
 	
-	Format(int i){
+	private Format(int i){
 		this.maxGames = i;
 	}
-	int getMaxGames(){
+	public int getMaxGames(){
 		return maxGames;
 	}
 }
