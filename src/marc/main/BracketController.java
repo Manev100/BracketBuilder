@@ -3,6 +3,8 @@ package marc.main;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Arrays;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +17,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -25,21 +29,53 @@ public class BracketController {
 	
 		private JFrame frame;
 		private final Dimension startSize = new Dimension(800,600); 
-		private BracketModel bracketModel;
+		private PlayersList bracketModel;
 		private ViewPanel viewPanel;
 		private JButton addButton;
 		private JButton deleteButton;
 		private JButton editBracketButton;
 		
+		
 	public BracketController(){
 		frame = new JFrame("Bracket-Builder");
-		bracketModel = new BracketModel();
+		bracketModel = new PlayersList();
 		frame.add(createJSplitPane(), BorderLayout.CENTER);
 		setup();
+		setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		
 		
 		
 	}
 	
+	private void setLookAndFeel(String lookAndFeel) {
+	    try {
+            // Set System L&F
+	    	UIManager.setLookAndFeel(lookAndFeel);
+		} 
+	    catch (ClassNotFoundException e) {
+            System.err.println("Couldn't find class for specified look and feel:"
+                               + lookAndFeel);
+            System.err.println("Did you include the L&F library in the class path?");
+            System.err.println("Using the default look and feel.");
+        } 
+        
+        catch (UnsupportedLookAndFeelException e) {
+            System.err.println("Can't use the specified look and feel ("
+                               + lookAndFeel
+                               + ") on this platform.");
+            System.err.println("Using the default look and feel.");
+        } 
+        
+        catch (Exception e) {
+            System.err.println("Couldn't get specified look and feel ("
+                               + lookAndFeel
+                               + "), for some reason.");
+            System.err.println("Using the default look and feel.");
+            e.printStackTrace();
+        }
+		
+	}
+
 	private void setup() {
 		frame.setSize(startSize);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -64,10 +100,9 @@ public class BracketController {
 	
 	
 	private JTable createTable(){
-
-		BracketTableModel model = new BracketTableModel(PlayerCount.players32);
 		
-		
+		LinkedList<Player> dummyList = new LinkedList<Player>(Arrays.asList(new Player[]{new Player("1"), new Player("2"),new Player("3"), new Player("4"),new Player("5"), new Player("6")}));
+		BracketTableModel model = new BracketTableModel(PlayerCount.players32, dummyList);
 		
 		JTable table = new JTable(model);
 		table.setDefaultRenderer(JPanel.class, new BracketTableRenderer());

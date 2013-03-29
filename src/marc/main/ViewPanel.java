@@ -20,11 +20,11 @@ import marc.BracketUtils.MatchPositions;
 
 public class ViewPanel extends JPanel{
 		
-	private BracketModel model;
+	private PlayersList model;
 	private int offsetX, offsetY;
 	private int maxUnitIncrement = 5;
 	
-	public ViewPanel(BracketModel m) {
+	public ViewPanel(PlayersList m) {
 		setOffsetX(0);
 		setOffsetY(0);
 		this.model = m;

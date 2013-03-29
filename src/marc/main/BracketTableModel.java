@@ -3,6 +3,8 @@ package marc.main;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
@@ -19,12 +21,42 @@ public class BracketTableModel extends AbstractTableModel implements TableModel 
 	private JPanel field[][];
 	private JPanel betweenPanel;
 	private int maxPlayers;
-	
+	private PlayersList players;
+	private LinkedList<BracketComponent> bracketComponents;
 	
 	public BracketTableModel(PlayerCount playerCount) {
-		this.maxPlayers = playerCount.getPlayerCount();
+		players = new PlayersList();
+		setUpField(playerCount);
 		
+	}
+	
+	public BracketTableModel(PlayerCount playerCount, LinkedList<Player> list) {
+		players = new PlayersList(list);
+		setUpField(playerCount);
+		refreshField();
+		
+	}
+
+	public void refreshField() {
+		Iterator<Player> playerIt = players.iterator();
+		
+		for(BracketComponent comp: bracketComponents){
+			Player ComponentPlayer = comp.getPlayerMatch().getPlayer1();
+			if(playerIt.hasNext()){
+				ComponentPlayer.setName(playerIt.next().getName());
+			}
+			ComponentPlayer = comp.getPlayerMatch().getPlayer2();
+			if(playerIt.hasNext()){
+				ComponentPlayer.setName(playerIt.next().getName());
+			}
+		}
+		
+	}
+
+	private void setUpField(PlayerCount playerCount) {
+		this.maxPlayers = playerCount.getPlayerCount();
 		this.COLUMN_NAMES = playerCount.getColumnNames();
+		bracketComponents = new LinkedList<BracketComponent>();
 		
 		if((Math.log(maxPlayers)/Math.log(2)) % 1 == 0){
 			rowCount = 2*maxPlayers -1;
@@ -37,10 +69,10 @@ public class BracketTableModel extends AbstractTableModel implements TableModel 
 		else{
 			throw new IllegalArgumentException("'playerCount' must be a power of 2!");
 		}
+		
 	}
 
 	private void fillfield(JPanel[][] f) {
-
 		Point[][] positions = MatchPositions.getPlayersPositions(maxPlayers);
 		int column;
 		int row;
@@ -50,6 +82,7 @@ public class BracketTableModel extends AbstractTableModel implements TableModel 
 				column = positions[x][y].x;
 				row = positions[x][y].y;	
 				f[column][row] = new BracketComponent(new PlayerMatch(new Player("TBD"),new Player("TBD")));
+				bracketComponents.add((BracketComponent) f[column][row]);
 				}
 			}
 		}

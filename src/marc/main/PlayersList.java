@@ -1,16 +1,17 @@
 package marc.main;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
-public class BracketModel {
+public class PlayersList {
 
 	private LinkedList<Player> playerList;
 	
-	public BracketModel() {
+	public PlayersList() {
 		this.playerList = new LinkedList<Player>();
 	}
 	
-	public BracketModel(LinkedList<Player> playerList) {
+	public PlayersList(LinkedList<Player> playerList) {
 		this.playerList = playerList;
 	}
 	
@@ -37,6 +38,14 @@ public class BracketModel {
 			}
 		}
 		throw new IllegalArgumentException("Name Not in List");
+	}
+	
+	public Player get(int index){
+		return playerList.get(index);
+	}
+	
+	public Iterator<Player> iterator(){
+		return playerList.iterator();
 	}
 	
 	public boolean deletePlayer(String name){

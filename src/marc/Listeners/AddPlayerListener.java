@@ -4,17 +4,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-import marc.main.BracketModel;
+import marc.main.PlayersList;
 import marc.main.Player;
 import marc.main.ViewPanel;
 
 public class AddPlayerListener implements ActionListener {
 	
-	private BracketModel model;
+	private PlayersList model;
 	private ViewPanel view;
 	
 	
-	public AddPlayerListener(BracketModel b, ViewPanel v) {
+	public AddPlayerListener(PlayersList b, ViewPanel v) {
 		this.model = b;
 		this.view = v;
 	}
